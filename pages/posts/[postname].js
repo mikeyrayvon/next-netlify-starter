@@ -4,17 +4,17 @@ import ReactMarkdown from 'react-markdown'
 
 import Layout from '../../components/Layout'
 
-export default function BlogPost({ siteTitle, matter, markdownBody }) {
-  if (!matter) return <></>
+export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
+  if (!frontmatter) return <></>
 
   return (
-      <Layout pageTitle={`${siteTitle} | ${matter.title}`}>
+      <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
         <Link href="/">
           <a>Back to post list</a>
         </Link>
         <article>
-          <h1>{matter.title}</h1>
-          <p>Published {matter.date}</p>
+          <h1>{frontmatter.title}</h1>
+          <p>Published {frontmatter.date}</p>
           <div>
             <ReactMarkdown source={markdownBody} />
           </div>
@@ -26,15 +26,18 @@ export default function BlogPost({ siteTitle, matter, markdownBody }) {
 export async function getStaticProps({ ...ctx }) {
   const { postname } = ctx.params
 
-  const content = await import(`../../posts/${postname}.md`)
+  const content = await import(`../../content/posts/${postname}.md`).catch(error => {
+    document.location.href = "/pages/404";
+  })
+  
   const config = await import(`../../siteconfig.json`)
   const data = matter(content.default)
 
   return {
     props: {
       siteTitle: config.title,
-      matter: data.data,
-      markdownBody: data.body,
+      frontmatter: data.data,
+      markdownBody: data.content,
     },
   }
 }
@@ -48,9 +51,9 @@ export async function getStaticPaths() {
       return slug
     })
     return data
-  })(require.context('../../posts', true, /\.md$/))
+  })(require.context('../../content/posts', true, /\.md$/))
 
-  const paths = blogSlugs.map((slug) => `/post/${slug}`)
+  const paths = blogSlugs.map((slug) => `/posts/${slug}`)
 
   return {
     paths,
