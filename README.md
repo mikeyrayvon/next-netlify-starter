@@ -2,6 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Notes
 
+[Netlify CMS with Next JS](https://www.netlifycms.org/docs/nextjs/)
 [Building a Markdown Blog with Next and Netlify](https://www.netlify.com/blog/2020/05/04/building-a-markdown-blog-with-next-9.4-and-netlify/)
 
 ## Getting Started

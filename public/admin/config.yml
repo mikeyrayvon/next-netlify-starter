@@ -1,8 +1,11 @@
 backend:
   name: git-gateway
   branch: master
-media_folder: public/img
-public_folder: img
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: dfkcribw5
+    api_key: 833165669738525
 collections:
   - name: "posts"
     label: "Posts"
