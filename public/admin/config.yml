@@ -7,6 +7,7 @@ media_library:
   config:
     cloud_name: dfkcribw5
     api_key: 833165669738525
+logo_url: https://youthful-bhaskara-cd8409.netlify.app/static/bunny.jpeg
 collections:
   - name: "posts"
     label: "Posts"
